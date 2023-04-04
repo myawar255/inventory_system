@@ -5,7 +5,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Spatie\Permission\Models\Role;
 
 class UsersTableSeeder extends Seeder
 {
@@ -18,7 +17,6 @@ class UsersTableSeeder extends Seeder
     {
         // Create admin user
         DB::table('users')->insert([
-            'personal_id' => Str::random(10),
             'name' => 'Admin User',
             'email' => 'admin@gmail.com',
             'mobile' => '1234567890',
@@ -29,13 +27,10 @@ class UsersTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $user=User::find(1);
-        $role=Role::find(1);
-        $user->assignRole($role);
+        $user = User::find(1);
 
         // Create regular user
         DB::table('users')->insert([
-            'personal_id' => Str::random(10),
             'name' => 'Regular User',
             'email' => 'bilal@gmail.com',
             'mobile' => '0987654321',
@@ -46,10 +41,6 @@ class UsersTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $user=User::find(2);
-        $role=Role::find(2);
-        $user->assignRole($role);
-
-
+        $user = User::find(2);
     }
 }
