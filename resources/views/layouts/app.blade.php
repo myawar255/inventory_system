@@ -174,22 +174,6 @@
 
             }
         })
-
-        function book_detail(id) {
-            $('#myModal').modal('show');
-            $('#modalTitle').html('Book Details');
-
-            var url = '{{ route('book.view_book', ':id') }}';
-            url = url.replace(':id', id);
-
-            $.ajax({
-                url: url,
-                success: function(html) {
-                    console.log('html: ', html);
-                    $('#edit_data_form').html(html);
-                }
-            });
-        }
     </script>
 
 

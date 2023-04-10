@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Customers;
+use Illuminate\Contracts\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
+use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,19 +17,19 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        return view('customers.index');
     }
 
-    public function get_data()
+    public function get_data(Request $request)
     {
-        $users = User::select(['id', 'name', 'email', 'created_at']);
-        return DataTables::of($users)
-            ->addColumn('action', function ($user) {
-                return $this->get_buttons($user->id);
+        $prducts = Customers::orderBy('id', 'desc')->get();
+        return DataTables::of($prducts)
+            ->addColumn('action', function ($product) {
+                return $this->get_buttons($product->id);
             })
-            ->addColumn('registered_at', function ($user) {
-                return $user->created_at->format('d M,Y');
-            })
+            // ->addColumn('registered_at', function ($product) {
+            //     return $product->created_at->format('d M,Y');
+            // })
             ->make(true);
     }
 
@@ -42,7 +40,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.modal.add');
+        return view('customers.modal.add');
     }
 
     /**
@@ -57,22 +55,19 @@ class UserController extends Controller
             $request->all(),
             [
                 'name' => 'required',
-                'email' => ['required', Rule::unique('users')],
-                'password' => 'required|min:8',
-                'role' => 'required',
+                'address' => 'required',
+                'phone' => 'required',
             ],
         );
         if ($validate->fails()) {
             return response()->json($validate->errors()->first(), 500);
         }
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
-        $role = $request->role;
-        $role = Role::findByName($role);
-        $user->assignRole($role);
+        $customer = new Customers();
+        $customer->customer_name = $request->name;
+        $customer->customer_address = $request->address;
+        $customer->customer_phone = $request->phone;
+        $customer->comment = $request->comment;
+        $customer->save();
         return 'Success';
     }
 
@@ -84,7 +79,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -95,8 +89,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('users.modal.edit', compact('user'));
+        $customer = Customers::find($id);
+        return view('customers.modal.edit', compact('customer'));
     }
 
     /**
@@ -108,15 +102,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::with('roles')->find($request->id);
-        $user->name = $request->name;
-        $user->password = $request->password != null ?  Hash::make($request->password) : $user->password;
-        $user->save();
+        $customer = Customers::find($request->id);
+        $customer->customer_name = $request->name;
+        $customer->customer_address = $request->address;
+        $customer->customer_phone = $request->phone;
+        $customer->comment = $request->comment;
+        $customer->save();
 
-        $role = $request->role;
-        $role = Role::findByName($role);
-        $user->removeRole($user->roles[0]);
-        $user->assignRole($role);
         return 'User Updated Successfully';
     }
 
@@ -128,7 +120,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $agent = User::find($id);
+
+        $agent = Customers::find($id);
         $agent->delete();
         return 'User Deleted Succesfully';
     }
