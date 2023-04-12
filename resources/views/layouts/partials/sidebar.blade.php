@@ -19,7 +19,7 @@
             $background = 'ECF5FF';
             $text = '1ea8e7';
             $avatar = 'https://ui-avatars.com/api/?background=' . $background . '&color=' . $text . '&name=' . $user_name;
-
+            
         @endphp
         <!-- User Menu Start -->
         <div class="user-container d-flex">
@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="{{ request()->is('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                    <a class="{{ request()->is('products*') ? 'active' : '' }}" href="{{ route('products.index') }}">
                         <i class="bi bi-cart3 fs-3s d-inline-block"></i>
                         <span class="label">Products</span>
                     </a>

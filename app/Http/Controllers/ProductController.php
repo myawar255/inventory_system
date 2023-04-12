@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Customers;
-use Illuminate\Contracts\Validation\Rule;
-use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\Validator;
+use App\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
-class CustomerController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +16,12 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('customers.index');
+        return view('products.index');
     }
 
     public function get_data(Request $request)
     {
-        $prducts = Customers::orderBy('id', 'desc')->get();
+        $prducts = Products::orderBy('id', 'desc')->get();
         return DataTables::of($prducts)
             ->addColumn('action', function ($product) {
                 return $this->get_buttons($product->id);
@@ -38,7 +37,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customers.modal.add');
+        return view('products.modal.add');
     }
 
     /**
@@ -52,20 +51,20 @@ class CustomerController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'name' => 'required',
-                'address' => 'required',
-                'phone' => 'required',
+                'productname' => 'required',
+                'purchase_price' => 'required',
+                'opening_stock' => 'required',
             ],
         );
         if ($validate->fails()) {
             return response()->json($validate->errors()->first(), 500);
         }
-        $customer = new Customers();
-        $customer->customer_name = $request->name;
-        $customer->customer_address = $request->address;
-        $customer->customer_phone = $request->phone;
-        $customer->comment = $request->comment;
-        $customer->save();
+        $product = new Products();
+        $product->productname = $request->productname;
+        $product->purchase_price = $request->purchase_price;
+        $product->sale_price = $request->sale_price;
+        $product->opening_stock = $request->opening_stock;
+        $product->save();
         return 'Success';
     }
 
@@ -77,6 +76,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**
@@ -87,8 +87,8 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $customer = Customers::find($id);
-        return view('customers.modal.edit', compact('customer'));
+        $product = Products::find($id);
+        return view('products.modal.edit', compact('product'));
     }
 
     /**
@@ -100,14 +100,24 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $customer = Customers::find($request->id);
-        $customer->customer_name = $request->name;
-        $customer->customer_address = $request->address;
-        $customer->customer_phone = $request->phone;
-        $customer->comment = $request->comment;
-        $customer->save();
-
-        return 'Customer Updated Successfully';
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'productname' => 'required',
+                'purchase_price' => 'required',
+                'opening_stock' => 'required',
+            ],
+        );
+        if ($validate->fails()) {
+            return response()->json($validate->errors()->first(), 500);
+        }
+        $product = Products::find($request->id);
+        $product->productname = $request->productname;
+        $product->purchase_price = $request->purchase_price;
+        $product->sale_price = $request->sale_price;
+        $product->opening_stock = $request->opening_stock;
+        $product->save();
+        return 'Success';
     }
 
     /**
@@ -118,9 +128,8 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-
-        $agent = Customers::find($id);
+        $agent = Products::find($id);
         $agent->delete();
-        return 'Customer Deleted Succesfully';
+        return 'Product Deleted Succesfully';
     }
 }
