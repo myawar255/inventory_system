@@ -82,6 +82,13 @@
                     </a>
                 </li>
                 <li>
+                    <a class="{{ request()->is('order_management*') ? 'active' : '' }}"
+                        href="{{ route('order_management.index') }}">
+                        <i data-acorn-icon="user" class="d-inline-block"></i>
+                        <span class="label">Order Management</span>
+                    </a>
+                </li>
+                <li>
                     <a class="{{ request()->is('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                         <i data-acorn-icon="user" class="d-inline-block"></i>
                         <span class="label">Users Management</span>

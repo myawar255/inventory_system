@@ -6,6 +6,7 @@ use App\Http\Controllers\BorrowRequestController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\IssuedBooksController;
+use App\Http\Controllers\OrderManagementController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RenewRequestController;
@@ -47,6 +48,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('products', 'ProductController');
     Route::get('get_products', [ProductController::class, 'get_data'])->name('get_products');
+
+
+    Route::resource('order_management', 'OrderManagementController');
+    Route::get('get_orders', [OrderManagementController::class, 'get_data'])->name('get_orders');
 
 
     Route::group(['middleware' => ['role:librarian']], function () {
