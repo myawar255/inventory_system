@@ -1,8 +1,8 @@
 <div class="fv-row mb-5 fv-plugins-icon-container">
     <label class="required fw-bold fs-6 mb-2">Order Name</label>
-    <input type="text" name="productname" class="form-control form-control-solid mb-3 mb-lg-0" value="">
+    <input type="text" name="orderName" class="form-control form-control-solid mb-3 mb-lg-0" value="">
     <div class="fv-plugins-message-container invalid-feedback"></div>
-    @error('productname')
+    @error('orderName')
         <span class="text-danger">{{ $message }}</span>
     @enderror
 </div>
@@ -46,7 +46,7 @@
     @enderror
 </div>
 <div class="fv-row mb-5 fv-plugins-icon-container">
-    <label class="required fw-bold fs-6 mb-2">Opening Store</label>
+    <label class="required fw-bold fs-6 mb-2">Opening Stock</label>
     <input type="text" name="opening_stock" class="form-control form-control-solid mb-3 mb-lg-0">
     <div class="fv-plugins-message-container invalid-feedback"></div>
     @error('opening_stock')
