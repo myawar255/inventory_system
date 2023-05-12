@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('customers', 'CustomerController');
     Route::get('get_customers', [CustomerController::class, 'get_data'])->name('get_customers');
+    Route::get('export_customers', [CustomerController::class, 'export_customers'])->name('export_customers');
 
     Route::resource('products', 'ProductController');
     Route::get('get_products', [ProductController::class, 'get_data'])->name('get_products');

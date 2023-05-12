@@ -16,6 +16,10 @@
             <i data-acorn-icon="plus"></i>
             <span>Add Customer</span>
         </button>
+        <a href="{{ route('export_customers') }}" class="btn btn-icon btn-icon-start btn-primary mb-4" type="button">
+            <i data-acorn-icon="plus"></i>
+            <span>Export Customer</span>
+        </a>
 
         {{-- -----Table----- --}}
         @php

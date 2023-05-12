@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Customers;
+use App\Exports\CustomersExport;
 use Illuminate\Contracts\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -122,5 +124,11 @@ class CustomerController extends Controller
         $agent = Customers::find($id);
         $agent->delete();
         return 'Customer Deleted Succesfully';
+    }
+
+    public function export_customers()
+    {
+        return Excel::download(new CustomersExport, 'customers.csv');
+        return redirect()->back();
     }
 }
