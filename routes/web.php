@@ -46,9 +46,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('customers', 'CustomerController');
     Route::get('get_customers', [CustomerController::class, 'get_data'])->name('get_customers');
     Route::get('export_customers', [CustomerController::class, 'export_customers'])->name('export_customers');
+    Route::post('import_customers', [CustomerController::class, 'import_customers'])->name('import_customers');
 
     Route::resource('products', 'ProductController');
     Route::get('get_products', [ProductController::class, 'get_data'])->name('get_products');
+    Route::get('export_products', [ProductController::class, 'export_products'])->name('export_products');
+    Route::post('import_products', [ProductController::class, 'import_products'])->name('import_products');
+
 
 
     Route::resource('order_management', 'OrderManagementController');

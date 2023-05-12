@@ -2,34 +2,34 @@
 
 namespace App\Exports;
 
-use App\Customers;
+use App\Products;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class CustomersExport implements FromQuery, WithMapping, WithHeadings
+class ProductExport implements FromQuery, WithMapping, WithHeadings
 {
     use Exportable;
 
         public function query()
     {
-        return Customers::query()->select('customer_name','customer_address','customer_phone');
+        return Products::query()->select('productname','stock','purchase_price','sale_price');
     }
 
     public function map($t): array
     {
         return [
-            $t->customer_name,
-            $t->customer_address,
-            $t->customer_phone,
+            $t->productname,
+            $t->stock,
+            $t->purchase_price,
+            $t->sale_price,
         ];
     }
 
     public function headings(): array
     {
-        return ['name', 'address', 'phone'];
+        return ['name', 'stock', 'purchase price','sale price'];
     }
-    }
-
+}

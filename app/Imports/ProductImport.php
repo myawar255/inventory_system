@@ -2,11 +2,11 @@
 
 namespace App\Imports;
 
-use App\Customers;
+use App\Products;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
-class CustomersImport implements ToCollection
+class ProductImport implements ToCollection
 {
     /**
     * @param Collection $collection
@@ -19,13 +19,13 @@ class CustomersImport implements ToCollection
                 continue;
             } else {
                 try {
-                    $customer = new Customers();
-                    $customer->user_id = auth()->id();
-                    $customer->customer_name = $row[0] ?? null;
-                    $customer->customer_address = $row[1] ?? null;
-                    $customer->customer_phone = $row[2] ?? null;
+                    $product = new Products();
+                    $product->userid = auth()->id();
+                    $product->stock = $row[0] ?? null;
+                    $product->purchase_price = $row[1] ?? null;
+                    $product->sale_price = $row[2] ?? null;
                     // dd($row[2]);
-                    $customer->save();
+                    $product->save();
                 } catch (\Throwable $th) {
                     continue;
                 }

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductExport;
+use App\Imports\ProductImport;
 use App\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
@@ -131,5 +134,17 @@ class ProductController extends Controller
         $agent = Products::find($id);
         $agent->delete();
         return 'Product Deleted Succesfully';
+    }
+
+    public function export_products()
+    {
+        return Excel::download(new ProductExport, 'customers.csv');
+        return redirect()->back();
+    }
+    public function import_products(Request $request)
+    {
+        Excel::import(new ProductImport, $request->csv_file);
+
+        return redirect()->back();;
     }
 }

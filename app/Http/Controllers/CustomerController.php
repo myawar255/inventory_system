@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Customers;
 use App\Exports\CustomersExport;
+use App\Imports\CustomersImport;
 use Illuminate\Contracts\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -130,5 +131,12 @@ class CustomerController extends Controller
     {
         return Excel::download(new CustomersExport, 'customers.csv');
         return redirect()->back();
+    }
+    public function import_customers(Request $request)
+    {
+
+        Excel::import(new CustomersImport, $request->csv_file);
+
+        return redirect()->back();;
     }
 }

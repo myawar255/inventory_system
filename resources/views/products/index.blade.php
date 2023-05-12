@@ -16,6 +16,14 @@
             <i data-acorn-icon="plus"></i>
             <span>Add Product</span>
         </button>
+        <a href="{{ route('export_customers') }}" class="btn btn-icon btn-icon-start btn-primary mb-4" type="button">
+            <span>Export Products</span>
+        </a>
+
+        <a class="btn btn-icon btn-icon-start btn-primary mb-4" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i data-acorn-icon="plus"></i>
+          <span>Add Bulk Products</span>
+      </a>
 
         {{-- -----Table----- --}}
         @php
