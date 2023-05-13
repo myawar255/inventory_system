@@ -59,7 +59,6 @@ class UserController extends Controller
                 'name' => 'required',
                 'email' => ['required', Rule::unique('users')],
                 'password' => 'required|min:8',
-                'role' => 'required',
             ],
         );
         if ($validate->fails()) {
@@ -70,9 +69,6 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-        $role = $request->role;
-        $role = Role::findByName($role);
-        $user->assignRole($role);
         return 'Success';
     }
 
@@ -108,15 +104,10 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::with('roles')->find($request->id);
+        $user = User::find($request->id);
         $user->name = $request->name;
         $user->password = $request->password != null ?  Hash::make($request->password) : $user->password;
         $user->save();
-
-        $role = $request->role;
-        $role = Role::findByName($role);
-        $user->removeRole($user->roles[0]);
-        $user->assignRole($role);
         return 'User Updated Successfully';
     }
 

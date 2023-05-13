@@ -24,10 +24,17 @@ class ProductController extends Controller
 
     public function get_data(Request $request)
     {
-        $prducts = Products::orderBy('id', 'desc')->get();
+        $prducts = Products::orderBy('created_at', 'DESC')->get();
         return DataTables::of($prducts)
             ->addColumn('action', function ($product) {
                 return $this->get_buttons($product->id);
+            })
+            ->addColumn('stock', function ($product) {
+                if ($product->stock==null) {
+                    return 0;
+                }else {
+                    return $product->stock;
+                }
             })
 
             ->make(true);
@@ -63,10 +70,13 @@ class ProductController extends Controller
             return response()->json($validate->errors()->first(), 500);
         }
         $product = new Products();
+        $product->userid=auth()->id();
         $product->productname = $request->productname;
         $product->purchase_price = $request->purchase_price;
         $product->sale_price = $request->sale_price;
         $product->opening_stock = $request->opening_stock;
+        $product->stock = $request->opening_stock;
+
         $product->save();
         return 'Success';
     }
@@ -138,7 +148,7 @@ class ProductController extends Controller
 
     public function export_products()
     {
-        return Excel::download(new ProductExport, 'customers.csv');
+        return Excel::download(new ProductExport, 'products.csv');
         return redirect()->back();
     }
     public function import_products(Request $request)

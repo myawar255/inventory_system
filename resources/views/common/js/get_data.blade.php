@@ -12,9 +12,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: get_data_url,
-                    aaSorting: [
-                        [0, "desc"]
-                    ],
+
                     columns: dynamicObjectArray
                 });
         });

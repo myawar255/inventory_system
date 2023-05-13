@@ -34,6 +34,8 @@
 
       <!-- Button Trigger -->
 
+
+      @include('common.modal.add_edit_modal')
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelDefault" aria-hidden="true">
           <div class="modal-dialog">
               <div class="modal-content">
@@ -56,8 +58,6 @@
                   </form>
               </div>
           </div>
-
-    @include('common.modal.add_edit_modal')
 @endsection
 
 @section('js_after')

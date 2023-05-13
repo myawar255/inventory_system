@@ -16,7 +16,7 @@
             <i data-acorn-icon="plus"></i>
             <span>Add Product</span>
         </button>
-        <a href="{{ route('export_customers') }}" class="btn btn-icon btn-icon-start btn-primary mb-4" type="button">
+        <a href="{{ route('export_products') }}" class="btn btn-icon btn-icon-start btn-primary mb-4" type="button">
             <span>Export Products</span>
         </a>
 
@@ -34,6 +34,29 @@
     </div>
 
     @include('common.modal.add_edit_modal')
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelDefault" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabelDefault">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <!-- <i data-cs-icon="close"></i> -->
+                    </button>
+                </div>
+                <form action="{{ route('import_products') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <div class="modal-body">
+                    <input type="file" name="csv_file" class="form-control" accept=".csv" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" >Save Changes</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('js_after')

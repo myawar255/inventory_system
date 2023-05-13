@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Library LMS</title>
+    <title>Inventory System</title>
     <meta name="description"
         content="A vertical menu that newer shows larger pinned version and switches between mobile view and semi-hidden view." />
     <!-- Favicon Tags Start -->

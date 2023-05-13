@@ -21,10 +21,11 @@ class ProductImport implements ToCollection
                 try {
                     $product = new Products();
                     $product->userid = auth()->id();
-                    $product->stock = $row[0] ?? null;
-                    $product->purchase_price = $row[1] ?? null;
-                    $product->sale_price = $row[2] ?? null;
-                    // dd($row[2]);
+                    $product->productname = $row[0] ?? null;
+                    $product->stock = $row[1] ?? null;
+                    $product->purchase_price = $row[2] ?? null;
+                    $product->sale_price = $row[3] ?? null;
+                    // dd($row[3]);
                     $product->save();
                 } catch (\Throwable $th) {
                     continue;

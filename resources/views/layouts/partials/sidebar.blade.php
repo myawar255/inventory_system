@@ -7,10 +7,10 @@
         <div class="logo position-relative w-100">
             <a class="w-100" href="Dashboards.Default.html w-100">
                 <!-- Logo can be added directly -->
-                <img src="{{ asset('acron/img/logo/small-logo.svg') }}" alt="logo" class="logo_small w-auto">
+                {{-- <img src="{{ asset('acron/img/logo/small-logo.svg') }}" alt="logo" class="logo_small w-auto"> --}}
 
                 <!-- Or added via css to provide different ones for different color themes -->
-                <div class="img w-100 logo_large" style="display: none"></div>
+                {{-- <div class="img w-100 logo_large" style="display: none"></div> --}}
             </a>
         </div>
         <!-- Logo End -->
@@ -19,7 +19,7 @@
             $background = 'ECF5FF';
             $text = '1ea8e7';
             $avatar = 'https://ui-avatars.com/api/?background=' . $background . '&color=' . $text . '&name=' . $user_name;
-            
+
         @endphp
         <!-- User Menu Start -->
         <div class="user-container d-flex">

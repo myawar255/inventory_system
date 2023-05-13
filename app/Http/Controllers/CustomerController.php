@@ -64,6 +64,7 @@ class CustomerController extends Controller
             return response()->json($validate->errors()->first(), 500);
         }
         $customer = new Customers();
+        $customer->user_id=auth()->id();
         $customer->customer_name = $request->name;
         $customer->customer_address = $request->address;
         $customer->customer_phone = $request->phone;
