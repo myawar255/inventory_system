@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\OrderedProduts;
 use App\Orders;
 use App\Products;
 use Illuminate\Http\Request;
@@ -26,10 +27,20 @@ class OrderManagementController extends Controller
                 return $this->get_buttons($product->id);
             })
             ->addColumn('order_number', function ($product) {
-                return 'Or' . random_int(100000, 999999);
+                return 'Or' . $product->id;
             })
-
+            ->addColumn('status', function ($product) {
+                if ($product->status==0) {
+                    $status='<p style="color: red">Pending</p>';
+                    return $status;
+                }else {
+                    $status='<p style="color: green">Delievered</p>';
+                    return $status;
+                }
+            })
+            ->rawColumns(['status','order_number','action'])
             ->make(true);
+
     }
 
     /**
@@ -43,6 +54,12 @@ class OrderManagementController extends Controller
         return view('order_management.modal.add', compact('products'));
     }
 
+    public function get_more_products($count=null)
+    {
+        $products = Products::get();
+        return view('order_management.modal.add_more_products',compact('products','count'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -51,7 +68,16 @@ class OrderManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order=new Orders();
+        $order->company_name=$request->company_name;
+        $order->delivery=$request->deleivery_date;
+        $order->order_date=$request->order_date;
+        $order->save();
+        $ordered_product=new OrderedProduts();
+        $ordered_product->order_id=$order->id;
+        $ordered_product->product_id=$order->product_name;
+        $ordered_product->save();
+        return 'Success';
     }
 
     /**

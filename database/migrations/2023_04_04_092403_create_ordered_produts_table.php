@@ -17,6 +17,7 @@ class CreateOrderedProdutsTable extends Migration
             $table->id();
             $table->integer('order_id')->nullable();
             $table->integer('product_id')->nullable();
+            $table->integer('qty')->nullable();
 
             $table->timestamps();
         });

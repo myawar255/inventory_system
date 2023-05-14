@@ -10,16 +10,15 @@
         <div class="page-title-container">
             <div class="row">
                 <div class="col-12 col-sm-6">
-                    <h1 class="mb-0 pb-0 display-4" id="title">Products</h1>
+                    <h1 class="mb-0 pb-0 display-4" id="title">Order Management</h1>
                 </div>
             </div>
         </div>
 
-        <button class="btn btn-icon btn-icon-start btn-primary mb-4" type="button" data-bs-toggle="modal"
-            onclick="addFormShow()" data-bs-target="#myModal">
+        <a href="{{ route('order_management.create') }}" class="btn btn-icon btn-icon-start btn-primary mb-4" type="button" >
             <i data-acorn-icon="plus"></i>
             <span>Add Order</span>
-        </button>
+        </a>
 
         {{-- -----Table----- --}}
         @php
@@ -46,8 +45,8 @@
     {{-- **Save Data** --}}
     <script>
         var add_form_url = "{{ route('order_management.create') }}"
-        var save_data_url = "{{ route('products.store') }}"
-        var add_title = "Add Product"
+        var save_data_url = "{{ route('order_management.store') }}"
+        var add_title = "Add Order"
     </script>
     @include('common.js.add_data')
 
@@ -56,7 +55,7 @@
     <script>
         var edit_form_url = '{{ route('products.edit', ':id') }}'
         var update_data_url = '{{ route('products.update', ':id') }}'
-        var edit_title = "Edit Product"
+        var edit_title = "Edit Order"
     </script>
     @include('common.js.edit_data')
 
