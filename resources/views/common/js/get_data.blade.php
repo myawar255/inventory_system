@@ -13,7 +13,14 @@
                     serverSide: true,
                     ajax: get_data_url,
 
-                    columns: dynamicObjectArray
+                    columns: dynamicObjectArray,
+
+                    drawCallback: function(setting) {
+                            checkedContent();
+                            DeleteAll();
+                            uncheckedContent();
+                        }
                 });
+
         });
 </script>

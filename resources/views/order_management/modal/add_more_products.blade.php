@@ -18,7 +18,7 @@
         <div class="fv-row mb-5 fv-plugins-icon-container ">
             <div class="d-flex">
                 <input type="text" name="quantity" class="form-control form-control-solid mb-3 mb-lg-0 me-2">
-                <i class="bi bi-trash mt-2"></i>
+                <i class="bi bi-trash mt-2" onclick="removeClubField({{ $count }})"></i>
             </div>
             <div class="fv-plugins-message-container invalid-feedback"></div>
             @error('sale_price')

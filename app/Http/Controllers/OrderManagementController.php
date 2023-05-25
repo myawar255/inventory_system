@@ -23,6 +23,12 @@ class OrderManagementController extends Controller
     {
         $prducts = Orders::orderBy('id', 'desc')->get();
         return DataTables::of($prducts)
+        ->editColumn('id', function ($row) {
+
+            $checkbox = '<input type="checkbox" name="check_data" class="checkboks form-check-input" value=' . $row->id . ' id="select' . $row->id . '">';
+
+            return $checkbox;
+        })
             ->addColumn('action', function ($product) {
                 return $this->get_buttons($product->id);
             })
@@ -38,7 +44,7 @@ class OrderManagementController extends Controller
                     return $status;
                 }
             })
-            ->rawColumns(['status','order_number','action'])
+            ->rawColumns(['id','status','order_number','action'])
             ->make(true);
 
     }
@@ -123,5 +129,18 @@ class OrderManagementController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function order_bulk_delete(Request $request)
+    {
+        if ($request->ajax()) {
+            foreach ($request->id as $row => $key) {
+                $order = Orders::find($request->id[$row]);
+                dd($order);
+                $order->delete();
+            }
+        }
+        return response()->json([
+            'message' => __('order_Deleted_Successfully') . '!'
+        ]);
     }
 }

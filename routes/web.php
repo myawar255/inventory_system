@@ -58,6 +58,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('order_management', 'OrderManagementController');
     Route::get('get_orders', [OrderManagementController::class, 'get_data'])->name('get_orders');
     Route::get('get_more_products/{count?}', [OrderManagementController::class, 'get_more_products'])->name('get_more_products');
+    Route::delete('order_management/bulk/delete', [OrderManagementController::class, 'order_bulk_delete'])->name('order_bulk_delete');
+
 
 
 
